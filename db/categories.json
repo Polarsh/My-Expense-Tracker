@@ -1,0 +1,77 @@
+[
+  {
+    "name": "Alimentación",
+    "subcategories": [
+      { "name": "Supermercado" },
+      { "name": "Restaurantes" },
+      { "name": "Snacks y Bebidas" }
+    ]
+  },
+  {
+    "name": "Transporte",
+    "subcategories": [
+      { "name": "Combustible" },
+      { "name": "Transporte Público" },
+      { "name": "Mantenimiento del Vehículo" },
+      { "name": "Estacionamiento" }
+    ]
+  },
+  {
+    "name": "Vivienda",
+    "subcategories": [
+      { "name": "Alquiler o Hipoteca" },
+      { "name": "Servicios" },
+      { "name": "Mantenimiento del Hogar" },
+      { "name": "Seguro del Hogar" }
+    ]
+  },
+  {
+    "name": "Ocio y Entretenimiento",
+    "subcategories": [
+      { "name": "Suscripciones" },
+      { "name": "Salidas" },
+      { "name": "Viajes y Vacaciones" }
+    ]
+  },
+  {
+    "name": "Salud",
+    "subcategories": [
+      { "name": "Seguros Médicos" },
+      { "name": "Medicamentos" },
+      { "name": "Consultas Médicas" }
+    ]
+  },
+  {
+    "name": "Ropa y Accesorios",
+    "subcategories": [
+      { "name": "Ropa" },
+      { "name": "Calzado" },
+      { "name": "Accesorios" }
+    ]
+  },
+  {
+    "name": "Educación",
+    "subcategories": [
+      { "name": "Libros" },
+      { "name": "Cursos y Capacitaciones" },
+      { "name": "Matrículas" }
+    ]
+  },
+  {
+    "name": "Finanzas",
+    "subcategories": [
+      { "name": "Deudas" },
+      { "name": "Préstamos" },
+      { "name": "Ahorro" },
+      { "name": "Inversiones" }
+    ]
+  },
+  {
+    "name": "Otros",
+    "subcategories": [
+      { "name": "Donaciones" },
+      { "name": "Regalos" },
+      { "name": "Misceláneos" }
+    ]
+  }
+]
