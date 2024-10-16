@@ -17,6 +17,10 @@ export default function PageLayout() {
     setSidebarOpen(true)
   }
 
+  const closeSideBar = () => {
+    setSidebarOpen(false)
+  }
+
   return (
     <>
       <div>
@@ -48,7 +52,7 @@ export default function PageLayout() {
                 </div>
               </TransitionChild>
               {/* Sidebar component, swap this element with another sidebar if you like */}
-              <Sidebar />
+              <Sidebar closeSideBar={closeSideBar} />
             </DialogPanel>
           </div>
         </Dialog>
@@ -56,7 +60,7 @@ export default function PageLayout() {
         {/* Static sidebar for desktop */}
         <div className='hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col'>
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <Sidebar />
+          <Sidebar closeSideBar={closeSideBar} />
         </div>
 
         <div className='lg:pl-72'>
