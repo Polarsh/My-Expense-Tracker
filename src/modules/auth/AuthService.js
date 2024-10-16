@@ -15,7 +15,7 @@ import AuthError from './AuthError'
 class AuthService {
   // Función para crear un usuario en la colección Firestore
   async saveUserToFirestore(user) {
-    const userRef = doc(db, `users/users-types/clients/${user.uid}`)
+    const userRef = doc(db, `users/${user.uid}`)
     const userSnapshot = await getDoc(userRef)
 
     if (!userSnapshot.exists()) {
@@ -134,4 +134,7 @@ class AuthService {
   }
 }
 
-export default new AuthService()
+// Instancia única de AuthService
+const authService = new AuthService()
+
+export default authService
