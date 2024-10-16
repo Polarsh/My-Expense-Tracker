@@ -1,172 +1,193 @@
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { Link, useNavigate } from 'react-router-dom'
+import { yupResolver } from '@hookform/resolvers/yup'
 
-export default function AddExpense() {
-  const [expense, setExpense] = useState({
-    name: '',
-    amount: '',
-    category: '',
-    subcategory: '',
-    paymentMethod: '',
-    currency: 'PEN', // Default to Soles
-    date: '',
-  })
+import { useExpenses } from '../context/ExpensesContext'
+import { expenseSchema } from '../modules/expenses/schemas/ExpenseSchema'
 
-  // Categories and subcategories
-  const categories = {
-    Alimentación: ['Supermercado', 'Restaurantes', 'Snacks y Bebidas'],
-    Transporte: [
-      'Combustible',
-      'Transporte Público',
-      'Mantenimiento',
-      'Estacionamiento',
-    ],
-    Vivienda: ['Alquiler o Hipoteca', 'Servicios', 'Mantenimiento del Hogar'],
-    'Ocio y Entretenimiento': ['Suscripciones', 'Viajes y Vacaciones'],
-    // Agrega más categorías y subcategorías según sea necesario
-  }
+import categoriesJson from '../../db/categories.json'
 
-  // Payment methods
-  const paymentMethods = [
+import SelectField from '../shared/components/SelectField'
+import AmountInput from '../shared/components/AmountInput'
+import InputDate from '../shared/components/InputDate'
+import { useCompany } from '../context/CompanyContext'
+
+export default function AddExpenseView() {
+  const { addExpense } = useExpenses()
+  const { companies } = useCompany()
+
+  const navigate = useNavigate()
+
+  const categoriesList = categoriesJson
+  const paymentMethodList = [
     'Yape',
     'Plin',
-    'Cash',
-    'Credit/Debit Card',
-    'Transferencia Bancaria',
+    'Efectivo',
+    'Tarjeta de Crédito',
+    'Tarjeta de Débito',
+    'Transferencia',
   ]
 
-  // Currency options
-  const currencies = [
-    { label: 'Soles (PEN)', value: 'PEN' },
-    { label: 'Dólares (USD)', value: 'USD' },
-  ]
+  const today = new Date().toISOString()
 
-  const handleInputChange = e => {
-    const { name, value } = e.target
-    setExpense({ ...expense, [name]: value })
+  const [currency, setCurrency] = useState('PEN') // Estado para la moneda
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    watch,
+  } = useForm({
+    resolver: yupResolver(expenseSchema),
+    defaultValues: {
+      currency: 'PEN', // Valor por defecto para la moneda
+      date: today, // Valor por defecto para la fecha
+    },
+  })
+
+  const onSubmit = async data => {
+    const formattedData = {
+      name: data.name, // Nombre del gasto
+      amount: parseFloat(data.amount), // Convertir el monto a número flotante
+      currency: data.currency, // Moneda
+      category: data.category, // Categoría
+      subcategory: data.subcategory, // Subcategoría
+      company: data.company, // Empresa
+      paymentMethod: data.paymentMethod, // Método de pago
+      date: data.date, // Fecha del gasto
+    }
+
+    // Simulación de envío de datos (puedes reemplazarlo con una API o servicio)
+    console.log('Gasto registrado:', formattedData)
+
+    //
+    await addExpense(formattedData)
+
+    navigate('/gastos')
   }
 
-  const handleSubmit = e => {
-    e.preventDefault()
-    console.log('Gasto registrado:', expense)
-  }
+  const selectedCategory = watch('category')
 
   return (
     <div>
       <h1 className='text-2xl font-bold'>Registrar Gasto</h1>
-      <form onSubmit={handleSubmit} className='mt-6 space-y-4'>
+      <form onSubmit={handleSubmit(onSubmit)} className='mt-6 space-y-4'>
         {/* Nombre del gasto */}
         <div>
-          <label className='block text-sm font-medium'>Nombre del Gasto</label>
-          <input
-            type='text'
-            name='name'
-            value={expense.name}
-            onChange={handleInputChange}
-            className='block w-full border border-gray-300 rounded-md shadow-sm p-2'
-            placeholder='Por ejemplo: Compra en supermercado'
-          />
-        </div>
-
-        {/* Monto */}
-        <div>
-          <label className='block text-sm font-medium'>Monto</label>
-          <input
-            type='number'
-            name='amount'
-            value={expense.amount}
-            onChange={handleInputChange}
-            className='block w-full border border-gray-300 rounded-md shadow-sm p-2'
-            placeholder='0.00'
-          />
-        </div>
-
-        {/* Selección de categoría */}
-        <div>
-          <label className='block text-sm font-medium'>Categoría</label>
-          <select
-            name='category'
-            value={expense.category}
-            onChange={handleInputChange}
-            className='block w-full border border-gray-300 rounded-md shadow-sm p-2'>
-            <option value=''>Selecciona una categoría</option>
-            {Object.keys(categories).map(category => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Subcategoría (solo si la categoría ha sido seleccionada) */}
-        {expense.category && (
-          <div>
-            <label className='block text-sm font-medium'>Subcategoría</label>
-            <select
-              name='subcategory'
-              value={expense.subcategory}
-              onChange={handleInputChange}
-              className='block w-full border border-gray-300 rounded-md shadow-sm p-2'>
-              <option value=''>Selecciona una subcategoría</option>
-              {categories[expense.category].map(subcategory => (
-                <option key={subcategory} value={subcategory}>
-                  {subcategory}
-                </option>
-              ))}
-            </select>
+          <label
+            htmlFor='name'
+            className='block text-sm font-medium text-gray-700'>
+            Nombre del Gasto
+          </label>
+          <div className='relative mt-2'>
+            <input
+              type='text'
+              {...register('name')}
+              className='block w-full appearance-none rounded-md border-0 bg-white py-2 px-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6'
+              placeholder='Compra en supermercado'
+            />
           </div>
-        )}
+          {errors.name && (
+            <p className='text-red-500 text-sm'>{errors.name.message}</p>
+          )}
+        </div>
+
+        {/* Componente de Precio y Moneda */}
+        <AmountInput
+          value={watch('amount')}
+          onChange={newAmount => setValue('amount', newAmount)}
+          currency={currency}
+          onCurrencyChange={newCurrency => {
+            setCurrency(newCurrency)
+            setValue('currency', newCurrency) // Actualiza la moneda en react-hook-form
+          }}
+          error={errors.amount}
+        />
+
+        {/* Categoría */}
+        <SelectField
+          label='Categoría'
+          options={categoriesList.map(category => ({
+            label: category.name,
+            value: category.name,
+          }))}
+          value={watch('category')}
+          onChange={option => {
+            setValue('category', option) // Solo guarda el valor string
+            setValue('subcategory', '') // Reinicia la subcategoría al cambiar la categoría
+          }}
+          error={errors.category}
+          isSearchable={false}
+        />
+
+        {/* Subcategoría */}
+        <SelectField
+          label='Subcategoría'
+          options={
+            selectedCategory
+              ? categoriesList
+                  .find(category => category.name === selectedCategory)
+                  ?.subcategories.map(subcategory => ({
+                    label: subcategory,
+                    value: subcategory,
+                  })) || []
+              : []
+          }
+          value={watch('subcategory')}
+          onChange={option => setValue('subcategory', option)} // Solo guarda el valor string
+          error={errors.subcategory}
+          isSearchable={false}
+        />
+
+        {/* Empresa */}
+        <div className='relative'>
+          <Link
+            to={'/ajustes'}
+            className='absolute top-1 right-0 text-xs text-primary hover:text-opacity-70 hover:cursor-pointer'>
+            Añadir empresa
+          </Link>
+          <SelectField
+            label='Empresa'
+            options={companies.map(company => ({
+              value: company.name,
+              label: company.name,
+            }))}
+            value={watch('company')}
+            onChange={option => setValue('company', option)} // Solo guarda el valor string
+            error={errors.company}
+          />
+        </div>
 
         {/* Método de pago */}
-        <div>
-          <label className='block text-sm font-medium'>Método de Pago</label>
-          <select
-            name='paymentMethod'
-            value={expense.paymentMethod}
-            onChange={handleInputChange}
-            className='block w-full border border-gray-300 rounded-md shadow-sm p-2'>
-            <option value=''>Selecciona un método de pago</option>
-            {paymentMethods.map(method => (
-              <option key={method} value={method}>
-                {method}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Moneda */}
-        <div>
-          <label className='block text-sm font-medium'>Moneda</label>
-          <select
-            name='currency'
-            value={expense.currency}
-            onChange={handleInputChange}
-            className='block w-full border border-gray-300 rounded-md shadow-sm p-2'>
-            {currencies.map(currency => (
-              <option key={currency.value} value={currency.value}>
-                {currency.label}
-              </option>
-            ))}
-          </select>
-        </div>
+        <SelectField
+          label='Método de Pago'
+          options={paymentMethodList.map(method => ({
+            value: method,
+            label: method,
+          }))}
+          value={watch('paymentMethod')}
+          onChange={option => setValue('paymentMethod', option)} // Solo guarda el valor string
+          error={errors.paymentMethod}
+          isSearchable={false}
+        />
 
         {/* Fecha */}
-        <div>
-          <label className='block text-sm font-medium'>Fecha</label>
-          <input
-            type='date'
-            name='date'
-            value={expense.date}
-            onChange={handleInputChange}
-            className='block w-full border border-gray-300 rounded-md shadow-sm p-2'
-          />
-        </div>
+        <InputDate
+          value={watch('date')}
+          onChange={newDate => setValue('date', newDate)}
+          error={errors.date}
+        />
 
-        {/* Botón de registro */}
-        <button
-          type='submit'
-          className='bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-indigo-500'>
-          Registrar Gasto
-        </button>
+        <div className='flex justify-end pt-6'>
+          {/* Botón de registro */}
+          <button
+            type='submit'
+            className=' bg-primary text-white px-4 py-2 rounded-lg shadow-md hover:opacity-70'>
+            Registrar Gasto
+          </button>
+        </div>
       </form>
     </div>
   )
