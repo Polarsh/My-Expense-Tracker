@@ -30,7 +30,7 @@ export default function PaymentMethodsSection() {
           {/* <div className='ml-4 mt-4 flex-shrink-0'>
             <button
               type='button'
-              className='relative inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
+              className='relative inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'>
               Añadir nuevo método
             </button>
           </div> */}
@@ -48,7 +48,7 @@ export default function PaymentMethodsSection() {
                   checked={method.enabled}
                   min={0}
                   onChange={() => togglePaymentMethod(index)}
-                  className='toggle-checkbox h-5 w-5 rounded-full bg-gray-200 checked:bg-indigo-600'
+                  className='toggle-checkbox h-5 w-5 rounded-full bg-gray-200 checked:bg-primary'
                 />
                 <span className='ml-2 text-sm'>
                   {method.enabled ? 'Activo' : 'Inactivo'}

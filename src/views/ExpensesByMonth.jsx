@@ -125,7 +125,7 @@ export default function ExpensesByMonth() {
                         </p>
                       </div>
                       <div>
-                        <p className='text-xl font-semibold text-indigo-600'>
+                        <p className='text-xl font-semibold text-primary'>
                           {expense.currency === 'PEN' ? 'S/' : '$'}
                           {expense.amount}
                         </p>

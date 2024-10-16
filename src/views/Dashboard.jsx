@@ -58,7 +58,7 @@ export default function Dashboard() {
           <h2 className='text-lg font-semibold text-gray-700'>
             Gastos Totales
           </h2>
-          <p className='text-2xl font-bold text-indigo-600'>S/ 2,650</p>
+          <p className='text-2xl font-bold text-primary'>S/ 2,650</p>
         </div>
         <div className='bg-white shadow rounded-lg p-4'>
           <h2 className='text-lg font-semibold text-gray-700'>
@@ -126,7 +126,7 @@ export default function Dashboard() {
                   {expense.date} - {expense.category}
                 </p>
               </div>
-              <p className='text-lg font-semibold text-indigo-600'>
+              <p className='text-lg font-semibold text-primary'>
                 S/ {expense.amount}
               </p>
             </li>

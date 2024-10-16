@@ -4,7 +4,7 @@ export default function PaymentsRecurring() {
   const [payment, setPayment] = useState({
     name: '',
     amount: '',
-    frequency: 'mensual', // Example of frequency, could be mensual (monthly), semanal (weekly), etc.
+    frequency: 'mensual',
     startDate: '',
     currency: 'PEN',
   })
@@ -78,7 +78,7 @@ export default function PaymentsRecurring() {
         </div>
         <button
           type='submit'
-          className='bg-indigo-600 text-white px-4 py-2 rounded-lg'>
+          className='bg-primary text-white px-4 py-2 rounded-lg'>
           Registrar Pago Recurrente
         </button>
       </form>
