@@ -1,77 +1,48 @@
 [
   {
     "name": "Alimentación",
-    "subcategories": [
-      { "name": "Supermercado" },
-      { "name": "Restaurantes" },
-      { "name": "Snacks y Bebidas" }
-    ]
+    "subcategories": ["Supermercado", "Restaurantes", "Snacks y Bebidas"]
   },
   {
     "name": "Transporte",
     "subcategories": [
-      { "name": "Combustible" },
-      { "name": "Transporte Público" },
-      { "name": "Mantenimiento del Vehículo" },
-      { "name": "Estacionamiento" }
+      "Combustible",
+      "Transporte Público",
+      "Mantenimiento del Vehículo",
+      "Estacionamiento"
     ]
   },
   {
     "name": "Vivienda",
     "subcategories": [
-      { "name": "Alquiler o Hipoteca" },
-      { "name": "Servicios" },
-      { "name": "Mantenimiento del Hogar" },
-      { "name": "Seguro del Hogar" }
+      "Alquiler o Hipoteca",
+      "Servicios",
+      "Mantenimiento del Hogar",
+      "Seguro del Hogar"
     ]
   },
   {
     "name": "Ocio y Entretenimiento",
-    "subcategories": [
-      { "name": "Suscripciones" },
-      { "name": "Salidas" },
-      { "name": "Viajes y Vacaciones" }
-    ]
+    "subcategories": ["Suscripciones", "Salidas", "Viajes y Vacaciones"]
   },
   {
     "name": "Salud",
-    "subcategories": [
-      { "name": "Seguros Médicos" },
-      { "name": "Medicamentos" },
-      { "name": "Consultas Médicas" }
-    ]
+    "subcategories": ["Seguros Médicos", "Medicamentos", "Consultas Médicas"]
   },
   {
     "name": "Ropa y Accesorios",
-    "subcategories": [
-      { "name": "Ropa" },
-      { "name": "Calzado" },
-      { "name": "Accesorios" }
-    ]
+    "subcategories": ["Ropa", "Calzado", "Accesorios"]
   },
   {
     "name": "Educación",
-    "subcategories": [
-      { "name": "Libros" },
-      { "name": "Cursos y Capacitaciones" },
-      { "name": "Matrículas" }
-    ]
+    "subcategories": ["Libros", "Cursos y Capacitaciones", "Matrículas"]
   },
   {
     "name": "Finanzas",
-    "subcategories": [
-      { "name": "Deudas" },
-      { "name": "Préstamos" },
-      { "name": "Ahorro" },
-      { "name": "Inversiones" }
-    ]
+    "subcategories": ["Deudas", "Préstamos", "Ahorro", "Inversiones"]
   },
   {
     "name": "Otros",
-    "subcategories": [
-      { "name": "Donaciones" },
-      { "name": "Regalos" },
-      { "name": "Misceláneos" }
-    ]
+    "subcategories": ["Donaciones", "Regalos", "Misceláneos"]
   }
 ]
