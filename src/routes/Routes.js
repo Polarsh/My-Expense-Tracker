@@ -13,6 +13,11 @@ export const navigation = [
     icon: PlusCircleIcon,
   },
   {
+    name: 'Gastos',
+    href: '/gastos',
+    icon: PlusCircleIcon,
+  },
+  {
     name: 'Ver Gastos por Mes',
     href: '/gastos-por-mes',
     icon: CalendarIcon,

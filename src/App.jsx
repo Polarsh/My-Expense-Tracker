@@ -3,17 +3,23 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
 import { AppProvider } from './context/AppContext'
 import { AuthProvider } from './context/AuthContext'
-/* import { UserProvider } from './context/UserContext' */
+import { ExpensesProvider } from './context/ExpensesContext'
+import { CompanyProvider } from './context/CompanyContext'
 
 import ProtectedRoute from './routes/ProtectedRoute'
 
 import PageLayout from './layout/PageLayout'
 
 import DefaultPage from './views/Default'
-import AddExpense from './views/AddExpense'
 import ExpensesByMonth from './views/ExpensesByMonth'
 import Settings from './views/Settings'
 import Dashboard from './views/Dashboard'
+
+import AddExpenseView from './views/AddExpense'
+import ExpenseListView from './views/ExpenseList'
+
+import LogInView from './views/Auth/LogIn'
+import LogOutView from './views/Auth/LogOut'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -29,29 +35,42 @@ export default function App() {
   return (
     <AppProvider>
       <AuthProvider>
-        {/* <UserProvider> */}
-        <ScrollToTop />
-        <Routes>
-          <Route>
-            <Route path='/' element={<Navigate to='/dashboard' replace />} />
-            <Route path='/iniciar-sesion' element={<DefaultPage />} />
+        <ExpensesProvider>
+          <CompanyProvider>
+            <ScrollToTop />
+            <Routes>
+              <Route>
+                <Route
+                  path='/'
+                  element={<Navigate to='/dashboard' replace />}
+                />
+                <Route path='/iniciar-sesion' element={<LogInView />} />
+                <Route path='/cerrar-sesion' element={<LogOutView />} />
 
-            {/* Protected */}
-            <Route
-              element={<ProtectedRoute redirectPath={'/iniciar-sesion'} />}>
-              <Route path='/' element={<PageLayout />}>
-                <Route path='dashboard' element={<Dashboard />} />
-                <Route path='registrar-gasto' element={<AddExpense />} />
-                <Route path='reportes' element={<DefaultPage />} />
-                <Route path='gastos-por-mes' element={<ExpensesByMonth />} />
-                <Route path='ajustes' element={<Settings />} />
+                {/* Protected */}
+                <Route
+                  element={<ProtectedRoute redirectPath={'/iniciar-sesion'} />}>
+                  <Route path='/' element={<PageLayout />}>
+                    <Route path='dashboard' element={<Dashboard />} />
+                    <Route
+                      path='registrar-gasto'
+                      element={<AddExpenseView />}
+                    />
+                    <Route path='gastos' element={<ExpenseListView />} />
+                    <Route path='reportes' element={<DefaultPage />} />
+                    <Route
+                      path='gastos-por-mes'
+                      element={<ExpensesByMonth />}
+                    />
+                    <Route path='ajustes' element={<Settings />} />
+                  </Route>
+                </Route>
+                {/* Página default */}
+                <Route path='*' element={<DefaultPage />} />
               </Route>
-            </Route>
-            {/* Págian error */}
-            <Route path='*' element={<DefaultPage />} />
-          </Route>
-        </Routes>
-        {/* </UserProvider> */}
+            </Routes>
+          </CompanyProvider>
+        </ExpensesProvider>
       </AuthProvider>
     </AppProvider>
   )
