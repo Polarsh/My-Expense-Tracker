@@ -12,9 +12,10 @@ import SelectField from '../shared/components/SelectField'
 import AmountInput from '../shared/components/AmountInput'
 import InputDate from '../shared/components/InputDate'
 import { useCompany } from '../context/CompanyContext'
+import LoadingModal from '../shared/components/LoadingModal'
 
 export default function AddExpenseView() {
-  const { addExpense } = useExpenses()
+  const { addExpense, loading } = useExpenses()
   const { companies } = useCompany()
 
   const navigate = useNavigate()
@@ -30,8 +31,7 @@ export default function AddExpenseView() {
   ]
 
   const today = new Date().toISOString()
-
-  const [currency, setCurrency] = useState('PEN') // Estado para la moneda
+  const [currency, setCurrency] = useState('PEN')
 
   const {
     register,
@@ -42,8 +42,8 @@ export default function AddExpenseView() {
   } = useForm({
     resolver: yupResolver(expenseSchema),
     defaultValues: {
-      currency: 'PEN', // Valor por defecto para la moneda
-      date: today, // Valor por defecto para la fecha
+      currency: 'PEN',
+      date: today,
     },
   })
 
@@ -59,13 +59,11 @@ export default function AddExpenseView() {
       date: data.date, // Fecha del gasto
     }
 
-    // Simulación de envío de datos (puedes reemplazarlo con una API o servicio)
     console.log('Gasto registrado:', formattedData)
 
-    //
     await addExpense(formattedData)
 
-    navigate('/gastos')
+    navigate('/mis-gastos')
   }
 
   const selectedCategory = watch('category')
@@ -181,7 +179,6 @@ export default function AddExpenseView() {
         />
 
         <div className='flex justify-end pt-6'>
-          {/* Botón de registro */}
           <button
             type='submit'
             className=' bg-primary text-white px-4 py-2 rounded-lg shadow-md hover:opacity-70'>
@@ -189,6 +186,7 @@ export default function AddExpenseView() {
           </button>
         </div>
       </form>
+      {loading && <LoadingModal title={'Añadiendo gasto'} />}
     </div>
   )
 }
