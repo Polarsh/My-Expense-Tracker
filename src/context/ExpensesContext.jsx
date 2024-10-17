@@ -27,6 +27,8 @@ export const ExpensesProvider = ({ children }) => {
   const fetchExpenses = async () => {
     setLoading(true)
 
+    console.log(' ------ ExpensesProvider ------')
+
     try {
       const data = await expenseService.getExpenses()
       data.sort((a, b) => a.date - b.date) // Ordenar los gastos por fecha
@@ -60,11 +62,13 @@ export const ExpensesProvider = ({ children }) => {
   }
 
   // Función para eliminar un gasto
-  const removeExpense = async id => {
+  const deleteExpense = async expense => {
     setLoading(true)
 
+    const expenseId = expense.id
+
     try {
-      await expenseService.deleteExpense(id)
+      await expenseService.deleteExpense(expenseId)
       fetchExpenses()
       toast.success('Gasto eliminado exitosamente')
     } catch (e) {
@@ -83,7 +87,7 @@ export const ExpensesProvider = ({ children }) => {
         loading,
         error,
         addExpense,
-        removeExpense,
+        deleteExpense,
       }}>
       {children}
     </ExpensesContext.Provider>

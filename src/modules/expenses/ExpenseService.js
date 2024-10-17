@@ -84,7 +84,7 @@ class ExpenseService {
     }
 
     try {
-      await deleteDoc(doc(db, 'users', this.userId, 'expenses', id))
+      await deleteDoc(doc(this.expensesCollection, id))
     } catch (e) {
       console.error('Error al eliminar el gasto: ', e)
       throw e
