@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
 const userNavigation = [
-  { name: 'Mi Cuenta', href: '/perfil/cuenta' },
-  { name: 'Mis Pedidos', href: '/perfil/pedidos' },
+  { name: 'Mi Cuenta', href: '/' },
+  { name: 'Mis Gastos', href: '/mis-gastos' },
   { name: 'Cerrar sesión', href: '/cerrar-sesion' },
 ]
 

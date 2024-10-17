@@ -8,20 +8,19 @@ import {
 export const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: ChartBarIcon },
   {
+    name: 'Gastos Recurrentes',
+    href: '/gastos-recurrentes',
+    icon: CalendarIcon,
+  },
+  {
     name: 'Registrar Gasto',
     href: '/registrar-gasto',
     icon: PlusCircleIcon,
   },
   {
-    name: 'Gastos',
-    href: '/gastos',
+    name: 'Mis Gastos',
+    href: '/mis-gastos',
     icon: PlusCircleIcon,
   },
-  {
-    name: 'Ver Gastos por Mes',
-    href: '/gastos-por-mes',
-    icon: CalendarIcon,
-  },
-
   { name: 'Ajustes', href: '/ajustes', icon: CogIcon },
 ]

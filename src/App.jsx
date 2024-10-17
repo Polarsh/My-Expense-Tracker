@@ -11,7 +11,6 @@ import ProtectedRoute from './routes/ProtectedRoute'
 import PageLayout from './layout/PageLayout'
 
 import DefaultPage from './views/Default'
-import ExpensesByMonth from './views/ExpensesByMonth'
 import Settings from './views/Settings'
 import Dashboard from './views/Dashboard'
 
@@ -20,6 +19,7 @@ import ExpenseListView from './views/ExpenseList'
 
 import LogInView from './views/Auth/LogIn'
 import LogOutView from './views/Auth/LogOut'
+import RecurringExpenseListView from './views/RecurringExpense'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -53,15 +53,14 @@ export default function App() {
                   <Route path='/' element={<PageLayout />}>
                     <Route path='dashboard' element={<Dashboard />} />
                     <Route
+                      path='gastos-recurrentes'
+                      element={<RecurringExpenseListView />}
+                    />
+                    <Route
                       path='registrar-gasto'
                       element={<AddExpenseView />}
                     />
-                    <Route path='gastos' element={<ExpenseListView />} />
-                    <Route path='reportes' element={<DefaultPage />} />
-                    <Route
-                      path='gastos-por-mes'
-                      element={<ExpensesByMonth />}
-                    />
+                    <Route path='mis-gastos' element={<ExpenseListView />} />
                     <Route path='ajustes' element={<Settings />} />
                   </Route>
                 </Route>
